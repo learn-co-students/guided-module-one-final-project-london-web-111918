@@ -10,21 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 3) do
+ActiveRecord::Schema.define(version: 2018_12_04_173902) do
 
   create_table "exchanges", force: :cascade do |t|
     t.string "name"
   end
 
-  create_table "spot_prices", force: :cascade do |t|
-    t.string "ticker"
-    t.float  "spot_price"
-    t.string "exchange_id"
+  create_table "token_exchanges", force: :cascade do |t|
+    t.integer "token_id"
+    t.integer "exchange_id"
+    t.float "volume"
   end
 
-  create_table "tickers", force: :cascade do |t|
+  create_table "tokens", force: :cascade do |t|
     t.string "name"
-    t.string "ticker"
+    t.string "slug"
+    t.float "rate"
   end
 
 end

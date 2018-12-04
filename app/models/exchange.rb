@@ -1,4 +1,4 @@
 class Exchange < ActiveRecord::Base
-  has_many :tickers
-  has_many :spot_prices, through: :tickers
+  has_many :tokens, through: :token_exchanges
+  has_many :token_exchanges
 end
