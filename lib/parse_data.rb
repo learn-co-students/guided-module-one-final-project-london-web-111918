@@ -20,7 +20,7 @@ def save_tokens_to_db
   response_hash_3 = get_data_from_api_rates("XRP")
   tokens_XRP = response_hash_3["rates"].each { |element| Token.create({name: "Ripple", slug: "XRP", rate: element["rate"], currency: element["asset_id_quote"]}) }
   # Get Bitcoin cash data and create Bitcoin cash tokens
-  response_hash_4 = get_data_from_api_rates("XRP")
+  response_hash_4 = get_data_from_api_rates("BCH")
   tokens_XRP = response_hash_3["rates"].each { |element| Token.create({name: "Bitcoin cash", slug: "BCH", rate: element["rate"], currency: element["asset_id_quote"]}) }
   # Get Stellar data and create Stellar tokens
   response_hash_5 = get_data_from_api_rates("XLM")
