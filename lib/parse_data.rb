@@ -5,7 +5,7 @@ require 'rest-client'
 require_relative 'api_communicator'
 require 'pry'
 
-##### Save tokens t1 = Token.create({name: "Bitcoin", slug: "BTC", rate: 2000})
+##### Save tokens
 
 def save_tokens_to_db
   Token.destroy_all
@@ -28,7 +28,7 @@ def save_tokens_to_db
 
 end
 
-##### Save exchanges exchange1 = Exchange.create({name: "Bitfinex"})
+##### Save exchanges
 
 def list_of_exchanges
   Exchange.destroy_all
@@ -39,7 +39,7 @@ def list_of_exchanges
   array.uniq.sort
 end
 
-##### Save token_exchanges token_exchange1 = TokenExchange.create({token_id: 1, exchange_id: 1, volume: 34000.00})
+##### Save token_exchanges
 
 def save_token_exchanges_to_db
   TokenExchange.destroy_all
@@ -55,34 +55,39 @@ def save_token_exchanges_to_db
   end
 end
 
-#<Token:0x007f9bc7310dc0
- # id: 10319,
- # name: "Bitcoin",
- # slug: "BTC",
- # rate: 14692.795771058958,
- # currency: "PLN">
+##### Methods to return information to user
 
- #<Exchange:0x007f9bc6cfad50 id: 119220, name: "BITMEX">
+def current_rate_for_token
 
+    token_list = ["BTC", "ETH", "BCH", "XRP", "XLM"]
+    puts "Please choose from one of the following tokens: Bitcoin (BTC), Ethereum (ETH), Bitcoin Cash (BCH), Ripple (XRP), Stellar (XLM)"
+    user_input_token = "BTC"
+    if user_input_token.class != String || user_input_token.length > 3
+      raise ArgumentError.new('Input must be a 3 character string')
+      return true
+    elsif user_input_token == "Exit" || user_input_token == "exit" || user_input_token == "EXIT"
+      return true
+    elsif token_list.include?(user_input_token) == false
+      raise ArgumentError.new('Input must be one of: BTC, ETH, BCH, XRP, XLM')
+    else
+      array = ["ETH", "USDC", "XLM", "USDT", "GBP", "EUR", "USD", "BRL", "XRP","LTC", "TUSD", "DAI", "RUB", "JPY", "NZD", "GUSD", "DOGE", "PAX", "TRY", "EURS", "KRW", "CAD", "HUSD", "MXN", "PLN", "KST", "SLL", "AUD", "PHP", "ZAR", "NGN", "IDR", "NMC", "MYR", "UAH", "SGD", "NIS", "CNYX", "USNBT", "CZK", "THB", "DKKT", "NZDT", "CNNBT", "SEK", "RON", "NOK", "INR", "ILS", "HUF", "HRK", "HKD", "DKK", "CNY", "CHF", "BGN", "UST", "EURN", "VEN", "BTC", "WAVES", "ZEC", "BCH", "UNO", "HT", "EOS", "OKB", "BNB", "QASH", "RUR", "DASH", "NEO", "KCS", "ZBC", "CNET"]
 
-#
-# {"symbol_id"=>"BITMEX_PERP_ETH_USD",
-#   "exchange_id"=>"BITMEX",
-#   "symbol_type"=>"PERPETUAL",
-#   "asset_id_base"=>"ETH",
-#   "asset_id_quote"=>"USD",
-#   "asset_id_unit"=>"ETH",
-#   "data_start"=>"2018-08-02",
-#   "data_end"=>"2018-12-05",
-#   "data_quote_start"=>"2018-08-02T09:04:09.0157660Z",
-#   "data_quote_end"=>"2018-12-05T00:00:00.0000000Z",
-#   "data_orderbook_start"=>"2018-08-02T09:04:09.0157660Z",
-#   "data_orderbook_end"=>"2018-12-05T00:00:00.0000000Z",
-#   "data_trade_start"=>"2018-08-02T09:06:10.6871980Z",
-#   "data_trade_end"=>"2018-12-05T00:00:00.0000000Z",
-#   "volume_1hrs"=>6537704.0,
-#   "volume_1hrs_usd"=>706318669.24,
-#   "volume_1day"=>274194687.0,
-#   "volume_1day_usd"=>29623370289.51,
-#   "volume_1mth"=>30018782573.0,
-#   "volume_1mth_usd"=>3243160987288.45},
+      puts "Please enter a currency"
+      user_input_currency = "USD"
+      if user_input_currency.class != String || user_input_currency.length > 3
+        raise ArgumentError.new('Input must be a 3 character string')
+        return true
+      elsif user_input_currency == "Exit" || user_input_currency== "exit" || user_input_currency == "EXIT"
+        return true
+      elsif array.include?(user_input_currency) == false
+        raise ArgumentError.new('Input must be an authorised currency')
+      else
+        token = Token.all.find_by(slug: user_input_token, currency: user_input_currency)
+        rate = token.rate
+        name = token.name
+        puts "The latest rate for #{name} in #{user_input_currency} is #{rate}."
+        return true
+      end
+    end
+end
+current_rate_for_token
