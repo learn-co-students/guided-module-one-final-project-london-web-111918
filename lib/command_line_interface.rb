@@ -6,20 +6,20 @@ end
 
 def welcome
   hello = Artii::Base.new
-  puts hello.asciify("Welcome    to    BitTrader")
+  puts Rainbow(hello.asciify("Welcome    to    BitTrader")).yellow
 end
 
 def intro
   puts ""
-  puts "Bit Trader is an app that lets cryptocurrency enthusiasts and traders evaluate"
-  puts "the market to help them with their buying and selling decisions"
+  puts Rainbow("Bit Trader is an app that lets cryptocurrency enthusiasts and traders evaluate").yellow
+  puts Rainbow("the market to help them with their buying and selling decisions").yellow
   puts ""
-  puts "---------------------------"
-  puts "Select a number from 1 - 7"
-  puts "---------------------------"
+  puts Rainbow("---------------------------").yellow
+  puts Rainbow("Select a number from 1 - 7").yellow
+  puts Rainbow("---------------------------").yellow
   puts ""
-  puts (" 1. ") + "Choose token: BTC, XMR, ETH, BCH, XLM ** returns current rate **"
-  puts (" 2. ") + "See library of exchanges with their tokens and currencies"
+  puts (" 1. ") + "Choose token to see current rate ** BTC, XMR, ETH, BCH, XLM **"
+  puts (" 2. ") + "See full library of exchanges together with their tokens and currencies"
   puts (" 3. ") + "See exchanges trading selected currency"
   puts (" 4. ") + "See list of exchanges trading selected token"
   puts (" 5. ") + "Exchanges sorted by 1-day token sale volume"
@@ -48,7 +48,7 @@ def menu_setting
        refresh_all_data
      when "7"
        goodbye = Artii::Base.new
-       puts goodbye.asciify("Thank   you   for   using   BitTrader")
+       puts Rainbow(goodbye.asciify("Thank  you  for  using  BitTrader")).yellow
        break
        else
        puts "That option does not exist. Please select a number from 1 - 7 "

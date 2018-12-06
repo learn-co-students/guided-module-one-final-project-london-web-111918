@@ -1,4 +1,5 @@
 ##### NOTE THAT NOT ALL TOKENS HAVE EXCHANGES! THIS IS DUE TO THE NATURE OF THE DATA.
+##### ALSO NOTE THAT SOME EXCHANGES HAVE NO TOKENS.
 
 ##### Save tokens
 
@@ -91,8 +92,8 @@ def show_all_exchanges_with_tokens_and_currencies
     end
   end
   puts ""
-  puts "This is BitTrader's library of exchanges"
-  puts hash
+  puts "This is BitTrader's library of exchanges: "
+  puts hash.sort
   intro
 end
 
