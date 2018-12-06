@@ -1,9 +1,4 @@
-require 'uri'
-require 'net/http'
-require 'json'
-require 'rest-client'
-require_relative 'api_communicator'
-require 'pry'
+##### NOTE THAT NOT ALL TOKENS HAVE EXCHANGES! THIS IS DUE TO THE NATURE OF THE DATA.
 
 ##### Save tokens
 
@@ -60,6 +55,7 @@ end
 def current_rate_for_token
 
   token_list = ["BTC", "ETH", "BCH", "XRP", "XLM"]
+  puts ""
   puts "Please choose from one of the following tokens: Bitcoin (BTC), Ethereum (ETH), Bitcoin Cash (BCH), Ripple (XRP), Stellar (XLM)"
   user_input_token = gets.chomp.upcase
   while token_list.include?(user_input_token) == false
@@ -67,6 +63,7 @@ def current_rate_for_token
     user_input_token = gets.chomp.upcase
   end
   array = ["ETH", "USDC", "XLM", "USDT", "GBP", "EUR", "USD", "BRL", "XRP","LTC", "TUSD", "DAI", "RUB", "JPY", "NZD", "GUSD", "DOGE", "PAX", "TRY", "EURS", "KRW", "CAD", "HUSD", "MXN", "PLN", "KST", "SLL", "AUD", "PHP", "ZAR", "NGN", "IDR", "NMC", "MYR", "UAH", "SGD", "NIS", "CNYX", "USNBT", "CZK", "THB", "DKKT", "NZDT", "CNNBT", "SEK", "RON", "NOK", "INR", "ILS", "HUF", "HRK", "HKD", "DKK", "CNY", "CHF", "BGN", "UST", "EURN", "VEN", "BTC", "WAVES", "ZEC", "BCH", "UNO", "HT", "EOS", "OKB", "BNB", "QASH", "RUR", "DASH", "NEO", "KCS", "ZBC", "CNET"]
+  puts ""
   puts "Please enter a currency"
   user_input_currency = gets.chomp.upcase
   while array.include?(user_input_currency) == false
@@ -76,8 +73,9 @@ def current_rate_for_token
   token = Token.all.find_by(slug: user_input_token, currency: user_input_currency)
   rate = token.rate
   name = token.name
+  puts ""
   puts "The latest rate for #{name} in #{user_input_currency} is #{rate}."
-  return true
+  intro
 end
 
 
@@ -92,14 +90,17 @@ def show_all_exchanges_with_tokens_and_currencies
       my_hash[token.name] = token.currency
     end
   end
+  puts ""
+  puts "This is BitTrader's library of exchanges"
   puts hash
-  return true
+  intro
 end
 
 
 ##### METHOD THREE
 def show_exchanges_for_currency
   array = ["ETH", "USDC", "XLM", "USDT", "GBP", "EUR", "USD", "BRL", "XRP","LTC", "TUSD", "DAI", "RUB", "JPY", "NZD", "GUSD", "DOGE", "PAX", "TRY", "EURS", "KRW", "CAD", "HUSD", "MXN", "PLN", "KST", "SLL", "AUD", "PHP", "ZAR", "NGN", "IDR", "NMC", "MYR", "UAH", "SGD", "NIS", "CNYX", "USNBT", "CZK", "THB", "DKKT", "NZDT", "CNNBT", "SEK", "RON", "NOK", "INR", "ILS", "HUF", "HRK", "HKD", "DKK", "CNY", "CHF", "BGN", "UST", "EURN", "VEN", "BTC", "WAVES", "ZEC", "BCH", "UNO", "HT", "EOS", "OKB", "BNB", "QASH", "RUR", "DASH", "NEO", "KCS", "ZBC", "CNET"]
+  puts ""
   puts "Please enter a currency"
   user_input_currency = gets.chomp.upcase
   while array.include?(user_input_currency) == false
@@ -115,14 +116,17 @@ def show_exchanges_for_currency
   end
   end
   if array.length > 1
+  puts ""
   puts "The exchanges that trade in #{user_input_currency} are: #{array.sort.join(', ')}."
-  return true
+  return intro
   elsif array.length == 0
+  puts ""
   puts "There are no exchanges that trade in #{user_input_currency}."
-  return true
+  intro
   elsif
+  puts ""
   puts "The only exchange that trades in #{user_input_currency} is #{array[0]}."
-  return true
+  intro
   end
 end
 
@@ -130,6 +134,7 @@ end
 ##### METHOD FOUR
 def show_exchanges_for_token
   token_list = ["BTC", "ETH", "BCH", "XRP", "XLM"]
+  puts ""
   puts "Please choose from one of the following tokens: Bitcoin (BTC), Ethereum (ETH), Bitcoin Cash (BCH), Ripple (XRP), Stellar (XLM)"
   user_input_token = gets.chomp.upcase
   while token_list.include?(user_input_token) == false
@@ -146,14 +151,17 @@ def show_exchanges_for_token
   array = array.uniq.sort
   end
   if array.length > 1
+    puts ""
     puts "The exchanges that trade #{user_input_token} are: #{array.sort.join(', ')}."
-    return true
+    intro
   elsif array.length == 0
+    puts ""
     puts "There are no exchanges that trades #{user_input_token}."
-    return true
+    intro
   elsif
+    puts ""
     puts "The only exchange that has #{user_input_token} is #{array[0]}."
-    return true
+    intro
   end
 end
 
@@ -161,9 +169,11 @@ end
 ##### METHOD FIVE
 def sort_exchanges_by_volume_for_token
   token_list = ["BTC", "ETH", "BCH", "XRP", "XLM"]
+  puts ""
   puts "Please choose from one of the following tokens: Bitcoin (BTC), Ethereum (ETH), Bitcoin Cash (BCH), Ripple (XRP), Stellar (XLM)"
   user_input_token = gets.chomp.upcase
   while token_list.include?(user_input_token) == false
+    puts ""
     puts "Please select from: BTC, ETH, BCH, XRP, XLM"
     user_input_token = gets.chomp.upcase
   end
@@ -179,27 +189,44 @@ def sort_exchanges_by_volume_for_token
   end
   array = array_of_names.zip(array_of_volumes).sort_by{|name, vol| vol}
   if array.length >= 5
+    puts ""
     puts "The top 5 exchanges in order of 1-day volume for #{user_input_token} are as follows: "
     puts array[-1]
     puts array[-2]
     puts array[-3]
     puts array[-4]
     puts array[-5]
-    return true
-  elsif array.length < 5 && array.length >= 1 #very unlikely to be used for selected 5 tokens!
+    intro
+  elsif array.length < 5 && array.length >= 1 #very unlikely to be needed for selected 5 tokens!
+    puts ""
     puts "The top exchanges in order of 1-day volume for #{user_input_token} are as follows: "
     puts array
-    return true
-  elsif array.length == 0 #very unlikely to be used for selected 5 tokens!
+    intro
+  elsif array.length == 0 #very unlikely to be needed for selected 5 tokens!
+    puts ""
     puts "There are no exchanges."
-    return true
+    intro
   end
 end
 
 
 ##### METHOD SIX
 def refresh_all_data
-  save_tokens_to_db
-  list_of_exchanges
-  save_token_exchanges_to_db
+  puts ""
+  puts "This option is not recommended for regular use! It may take 10 minutes to refresh all data"
+  puts "Do you really want to refresh all data? Yes / No"
+  user_response = gets.chomp.upcase
+  while user_response != "YES" || user_response != "NO"
+    puts "Please enter Yes or No"
+    user_input_token = gets.chomp.upcase
+  end
+  if user_response == "YES"
+    puts "Please wait... this may take a while..."
+    save_tokens_to_db
+    list_of_exchanges
+    save_token_exchanges_to_db
+    intro
+  else
+    intro
+  end
 end
