@@ -7,18 +7,28 @@ def save_tokens_to_db
   Token.destroy_all
   # Get Bitcoin data and create Bitcoin tokens
   response_hash = get_data_from_api_rates("BTC")
+  puts ""
+  puts "...populating Bitcoin data..."
   tokens_BTC = response_hash["rates"].each { |element| Token.create({name: "Bitcoin", slug: "BTC", rate: element["rate"], currency: element["asset_id_quote"]}) }
   # Get Ethereum data and create Ethereum tokens
   response_hash_2 = get_data_from_api_rates("ETH")
+  puts ""
+  puts "...populating Ethereum data..."
   tokens_ETH = response_hash_2["rates"].each { |element| Token.create({name: "Ethereum", slug: "ETH", rate: element["rate"], currency: element["asset_id_quote"]}) }
   # Get Ripple data and create Ripple tokens
   response_hash_3 = get_data_from_api_rates("XRP")
+  puts ""
+  puts "...populating Ripple data..."
   tokens_XRP = response_hash_3["rates"].each { |element| Token.create({name: "Ripple", slug: "XRP", rate: element["rate"], currency: element["asset_id_quote"]}) }
   # Get Bitcoin cash data and create Bitcoin cash tokens
   response_hash_4 = get_data_from_api_rates("BCH")
+  puts ""
+  puts "...populating Bitcoin Cash data..."
   tokens_XRP = response_hash_3["rates"].each { |element| Token.create({name: "Bitcoin cash", slug: "BCH", rate: element["rate"], currency: element["asset_id_quote"]}) }
   # Get Stellar data and create Stellar tokens
   response_hash_5 = get_data_from_api_rates("XLM")
+  puts ""
+  puts "...populating Stellar data..."
   tokens_XRP = response_hash_3["rates"].each { |element| Token.create({name: "Ripple", slug: "XLM", rate: element["rate"], currency: element["asset_id_quote"]}) }
 end
 
@@ -29,6 +39,8 @@ def list_of_exchanges
   response_hash_exchanges = get_data_from_api_symbols
   array = []
   response_hash_exchanges.each { |element| array << element["exchange_id"]}
+  puts ""
+  puts "...populating exchanges..."
   exchanges_all = array.uniq.each { |element| Exchange.create({name: element}) }
   array.uniq.sort
 end
@@ -38,6 +50,8 @@ end
 def save_token_exchanges_to_db
   TokenExchange.destroy_all
   response_hash_token_exchanges = get_data_from_api_symbols
+  puts ""
+  puts "...finalising database..."
   response_hash_token_exchanges = response_hash_token_exchanges.select {|element| element["symbol_type"] == "SPOT"}
   response_hash_token_exchanges.each do |element|
     token = Token.find_by(slug: element["asset_id_base"], currency: element["asset_id_quote"])
@@ -46,6 +60,8 @@ def save_token_exchanges_to_db
       TokenExchange.create( {token_id: token.id, exchange_id: exchange.id, volume: element["volume_1day"] } )
     end
   end
+  puts ""
+  puts "...database refresh complete!"
 end
 
 
@@ -75,7 +91,7 @@ def current_rate_for_token
   rate = token.rate
   name = token.name
   puts ""
-  puts "The latest rate for #{name} in #{user_input_currency} is #{rate}."
+  puts "One #{name} is #{rate} #{user_input_currency}."
   intro
 end
 
@@ -94,6 +110,7 @@ def show_all_exchanges_with_tokens_and_currencies
   puts ""
   puts "This is BitTrader's library of exchanges: "
   puts hash.sort
+  #tp Exchange.all, :name, {"tokens.name"=>{:display_name => "Available tokens"}}, {"tokens.currency"=>{:display_name => "Available currencies"}}
   intro
 end
 
@@ -157,7 +174,7 @@ def show_exchanges_for_token
     intro
   elsif array.length == 0
     puts ""
-    puts "There are no exchanges that trades #{user_input_token}."
+    puts "There are no exchanges that trade #{user_input_token}."
     intro
   elsif
     puts ""

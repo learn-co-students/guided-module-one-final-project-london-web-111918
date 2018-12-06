@@ -18,11 +18,11 @@ def intro
   puts Rainbow("Select a number from 1 - 7").yellow
   puts Rainbow("---------------------------").yellow
   puts ""
-  puts (" 1. ") + "Choose token to see current rate ** BTC, XMR, ETH, BCH, XLM **"
+  puts (" 1. ") + "See current rate for your chosen token ** BTC, XMR, ETH, BCH, XLM **"
   puts (" 2. ") + "See full library of exchanges together with their tokens and currencies"
-  puts (" 3. ") + "See exchanges trading selected currency"
-  puts (" 4. ") + "See list of exchanges trading selected token"
-  puts (" 5. ") + "Exchanges sorted by 1-day token sale volume"
+  puts (" 3. ") + "See exchanges that trade your chosen currency"
+  puts (" 4. ") + "See all exchanges that trade your chosen token"
+  puts (" 5. ") + "See top exchanges sorted by 1-day token sale volume"
   puts (" 6. ") + "Refresh all data (not recommended)"
   puts (" 7. ") + "Exit"
   puts ""
