@@ -31,7 +31,7 @@ Select an option (1-7) from the main menu to proceed:
 6. Refresh all data
 7. Exit
 
-Foe example, to see the current rate for BTC, enter:
+For example, to see the current rate for BTC, enter:
 ```
 1
 ```
