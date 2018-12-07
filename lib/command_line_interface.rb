@@ -11,7 +11,7 @@ end
 
 def intro
   puts ""
-  puts Rainbow("Bit Trader is an app that lets cryptocurrency enthusiasts and traders evaluate").yellow
+  puts Rainbow("BitTrader is an app that lets cryptocurrency enthusiasts and traders evaluate").yellow
   puts Rainbow("the market to help them with their buying and selling decisions").yellow
   puts ""
   puts Rainbow("---------------------------").yellow
