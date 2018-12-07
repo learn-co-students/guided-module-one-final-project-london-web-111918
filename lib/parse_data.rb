@@ -127,15 +127,16 @@ def show_exchanges_for_currency
   end
   array = []
   Exchange.all.each do | exchange |
-  exchange.tokens.each do | token |
-    if token.currency == user_input_currency
-      array << exchange.name
+    exchange.tokens.each do | token |
+      if token.currency == user_input_currency
+        array << exchange.name
+      end
     end
   end
-  end
+  array = array.uniq.sort
   if array.length > 1
   puts ""
-  puts "The exchanges that trade in #{user_input_currency} are: #{array.sort.join(', ')}."
+  puts "The exchanges that trade in #{user_input_currency} are: #{array.join(', ')}."
   return intro
   elsif array.length == 0
   puts ""
