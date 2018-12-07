@@ -87,6 +87,10 @@ def current_rate_for_token
     puts "Please enter a valid 3 character currency code"
     user_input_currency = gets.chomp.upcase
   end
+  while user_input_token == user_input_currency
+    puts "Please enter a code that is not the same as your token"
+    user_input_currency = gets.chomp.upcase
+  end
   token = Token.all.find_by(slug: user_input_token, currency: user_input_currency)
   rate = token.rate
   name = token.name
