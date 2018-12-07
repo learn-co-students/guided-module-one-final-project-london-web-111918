@@ -8,4 +8,4 @@ gem "require_all"
 gem 'rest-client'
 gem 'artii'
 gem 'rainbow'
-gem 'table_print'
+#gem 'table_print'
