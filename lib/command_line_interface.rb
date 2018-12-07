@@ -23,7 +23,7 @@ def intro
   puts (" 3. ") + "See exchanges that trade in your chosen currency"
   puts (" 4. ") + "See all exchanges that trade your chosen token"
   puts (" 5. ") + "See top exchanges sorted by 1-day token sale volume"
-  puts (" 6. ") + "Refresh all data (not recommended)"
+  puts (" 6. ") + "Refresh all data"
   puts (" 7. ") + "Exit"
   puts ""
   puts ""

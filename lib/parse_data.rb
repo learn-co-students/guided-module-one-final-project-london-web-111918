@@ -110,7 +110,7 @@ def show_all_exchanges_with_tokens_and_currencies
   puts ""
   puts "This is BitTrader's library of exchanges: "
   puts hash.sort
-  #tp Exchange.all, :name, {"tokens.name"=>{:display_name => "Available tokens"}}, {"tokens.currency"=>{:display_name => "Available currencies"}}
+  #tp Exchange.all, :name, {"tokens.name"=>{:display_name => "Available tokens"}}, {"tokens.currency"=>{:display_name => "Available currencies"}} #table format not used
   intro
 end
 
